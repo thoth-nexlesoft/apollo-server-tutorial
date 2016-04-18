@@ -18,6 +18,7 @@ type Post {
 type RootQuery {
   author(firstName: String, lastName: String): Author
   posts(tag: String): [Post]
+  fortuneCookie: String
 }
 
 # this schema allows the following two mutations:
