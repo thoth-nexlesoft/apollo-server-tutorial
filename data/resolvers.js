@@ -5,16 +5,18 @@ const resolveFunctions = {
     author(_, { firstName, lastName }){
       return Author.find({ where: { firstName, lastName } });
     },
-    posts(_, { tag }){
-      return Post.where( tag in tags); // TODO TK
-    },
     fortuneCookie(){
       return FortuneCookie.getOne();
     },
   },
   RootMutation: {
     createAuthor: (root, args) => { return Author.create(args); },
-    createPost: () => { throw new Error('not implemented'); },
+    createPost: (root, { authorId, tags, title, text }) => {
+      return Author.findOne({ where: { id: authorId } }).then( (author) => {
+        console.log('found', author);
+        return author.createPost( { tags: tags.join(','), title, text });
+      });
+    },
   },
   Author: {
     posts(author){
