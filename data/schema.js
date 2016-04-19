@@ -11,6 +11,7 @@ type Post {
   tags: [String]
   title: String
   text: String
+  views: Int
   author: Author
 }
 

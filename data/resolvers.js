@@ -1,5 +1,4 @@
-import { Author, Post } from './connectors';
-import rp from 'request-promise';
+import { Author, Post, View, FortuneCookie } from './connectors';
 
 const resolveFunctions = {
   RootQuery: {
@@ -10,11 +9,7 @@ const resolveFunctions = {
       return Post.where( tag in tags); // TODO TK
     },
     fortuneCookie(){
-      return rp('http://fortunecookieapi.com/v1/cookie')
-        .then((res) => JSON.parse(res))
-        .then((res) => {
-          return res[0].fortune.message;
-        });
+      return FortuneCookie.getOne();
     },
   },
   RootMutation: {
@@ -32,6 +27,9 @@ const resolveFunctions = {
     },
     tags(post){
       return post.tags.split(',');
+    },
+    views(post){
+      return View.findOne({ postId: post.id }).then( (res) => res.views );
     }
   }
 }

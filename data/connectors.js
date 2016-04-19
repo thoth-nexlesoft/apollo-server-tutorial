@@ -1,5 +1,7 @@
 import Sequelize from 'sequelize';
+import Mongoose from 'mongoose';
 import casual from 'casual';
+import rp from 'request-promise';
 import _ from 'lodash';
 
 const db = new Sequelize('blog', null, null, {
@@ -32,6 +34,15 @@ const PostModel = db.define('post', {
   }
 });
 
+
+const mongo = Mongoose.connect('mongodb://localhost/views');
+
+const ViewSchema = Mongoose.Schema({
+  postId: Number,
+  views: Number,
+})
+
+const View = Mongoose.model('views', ViewSchema);
 // Relations
 AuthorModel.hasMany(PostModel);
 PostModel.belongsTo(AuthorModel);
@@ -47,6 +58,10 @@ db.sync({ force: true }).then(()=> {
         title: `A post by ${author.firstName} ${author.lastName}`,
         text: casual.sentences(3),
         tags: casual.words(3).split(' ').join(','),
+      }).then( (post) => {
+        return View.update({ postId: post.id }, { views: casual.integer(0,100)}, { upsert: true })
+        .then( (res) => console.log(res))
+        .catch( (err) => console.log(err));
       });
     });
   });
@@ -55,4 +70,14 @@ db.sync({ force: true }).then(()=> {
 const Author = db.models.author;
 const Post = db.models.post;
 
-export { Author, Post };
+const FortuneCookie = {
+  getOne(){
+    return rp('http://fortunecookieapi.com/v1/cookie')
+      .then((res) => JSON.parse(res))
+      .then((res) => {
+        return res[0].fortune.message;
+      });
+  },
+};
+
+export { Author, Post, View, FortuneCookie };
