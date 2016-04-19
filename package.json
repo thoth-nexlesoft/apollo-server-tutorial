@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Minimal set of code to write a GraphQL server with Apollo graphql-tools",
   "scripts": {
-    "start": "babel-node ./server.js",
+    "start": "nodemon ./server.js --exec babel-node",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -41,6 +41,7 @@
   "devDependencies": {
     "babel-cli": "6.5.1",
     "casual": "^1.5.2",
-    "lodash": "^4.11.1"
+    "lodash": "^4.11.1",
+    "nodemon": "^1.9.1"
   }
 }
