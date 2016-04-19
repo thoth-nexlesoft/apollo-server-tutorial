@@ -12,22 +12,18 @@ const db = new Sequelize('blog', null, null, {
 const AuthorModel = db.define('author', {
   firstName: {
     type: Sequelize.STRING,
-    // allowNull: false
   },
   lastName: {
     type: Sequelize.STRING,
-    // allowNull: false
   },
 });
 
 const PostModel = db.define('post', {
   title: {
     type: Sequelize.STRING,
-    // allowNull: false
   },
   text: {
     type: Sequelize.STRING,
-    // allowNull: false
   },
   tags: {
     type: Sequelize.STRING,
