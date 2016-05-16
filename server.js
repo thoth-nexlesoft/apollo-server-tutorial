@@ -3,15 +3,22 @@ import { apolloServer } from 'graphql-tools';
 import Schema from './data/schema';
 import Mocks from './data/mocks';
 import Resolvers from './data/resolvers';
+import { Tracer, addTracingToResolvers, makeExecutableSchema } from 'graphql-tools';
+
 
 const GRAPHQL_PORT = 8080;
+
+const tracer = new Tracer('T1');
+
+const jsSchema = makeExecutableSchema({ typeDefs: Schema, resolvers: Resolvers })
+addTracingToResolvers(jsSchema, tracer);
 
 var graphQLServer = express();
 graphQLServer.use('/', apolloServer({
   graphiql: true,
   pretty: true,
-  schema: Schema,
-  resolvers: Resolvers,
+  schema: jsSchema,
+  logFn: tracer.log.bind(tracer),
   //mocks: Mocks,
 }));
 graphQLServer.listen(GRAPHQL_PORT, () => console.log(

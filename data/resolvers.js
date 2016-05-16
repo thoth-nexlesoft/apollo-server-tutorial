@@ -2,8 +2,8 @@ import { Author, Post, View, FortuneCookie } from './connectors';
 
 const resolveFunctions = {
   RootQuery: {
-    author(_, { firstName, lastName }){
-      return Author.find({ where: { firstName, lastName } });
+    author(_, args){
+      return Author.find({ where: args });
     },
     fortuneCookie(){
       return FortuneCookie.getOne();
