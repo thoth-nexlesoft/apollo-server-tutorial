@@ -3,7 +3,14 @@ import { Author, Post, View, FortuneCookie } from './connectors';
 const resolveFunctions = {
   RootQuery: {
     author(_, { firstName, lastName }){
-      return Author.find({ where: { firstName, lastName } });
+      let where = { firstName, lastName};
+      if (!lastName){
+        where = { firstName };
+      }
+      if (!firstName){
+        where = { lastName };
+      }
+      return Author.find({ where });
     },
     fortuneCookie(){
       return FortuneCookie.getOne();
@@ -32,7 +39,7 @@ const resolveFunctions = {
     },
     views(post){
       return new Promise((resolve, reject) => {
-        setTimeout(reject('MongoDB timeout when fetching field views (timeout is 500ms)'), 500);
+        setTimeout( () => reject('MongoDB timeout when fetching field views (timeout is 500ms)'), 500);
         View.findOne({ postId: post.id }).then( (res) => resolve(res.views) );
       })
     }
