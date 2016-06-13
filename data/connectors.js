@@ -31,7 +31,11 @@ const PostModel = db.define('post', {
 });
 
 
-const mongo = Mongoose.connect('mongodb://localhost/views');
+const mongo = Mongoose.connect('mongodb://localhost/views', (err) => {
+  if(err){
+    console.error('Could not connect to MongoDB on port 27017');
+  }
+});
 
 const ViewSchema = Mongoose.Schema({
   postId: Number,

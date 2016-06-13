@@ -31,7 +31,10 @@ const resolveFunctions = {
       return post.tags.split(',');
     },
     views(post){
-      return View.findOne({ postId: post.id }).then( (res) => res.views );
+      return new Promise((resolve, reject) => {
+        setTimeout(reject('MongoDB timeout when fetching field views (timeout is 500ms)'), 500);
+        View.findOne({ postId: post.id }).then( (res) => resolve(res.views) );
+      })
     }
   }
 }
