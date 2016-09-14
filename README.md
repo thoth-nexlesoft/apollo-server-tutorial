@@ -1,7 +1,9 @@
 # apollo-server-tutorial
+**Note: The Tutorial uses Apollo Server v0.1, which is not the current version. To get to the current version, follow the tutorial, and then update following this [migration guide](http://dev.apollodata.com/tools/apollo-server/migration.html).**
+
 This repo contains the full code for the GraphQL server tutorial (SQL, MongoDB + REST).
 
-Documentation and explanations can be found on [docs.apollostack.com](http://docs.apollostack.com/apollo-server/guide.html)
+Documentation and explanations can be found on [docs.apollostack.com](http://dev.apollodata.com/tools/apollo-server/index.html)
 
 ## How to use
 
