@@ -1,4 +1,6 @@
 # apollo-server-tutorial
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/apollographql/apollo-server-tutorial.svg)](https://greenkeeper.io/)
 **Note: The Tutorial uses Apollo Server v0.1, which is not the current version. To get to the current version, follow the tutorial, and then update following this [migration guide](http://dev.apollodata.com/tools/apollo-server/migration.html).**
 
 **All The changes necessary to update to Apollo Server v0.2 can be found in the diff of [@p4bloch's PR](https://github.com/apollostack/apollo-server-tutorial/pull/6/files)**
